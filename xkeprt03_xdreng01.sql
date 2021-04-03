@@ -5,6 +5,8 @@ drop table sal CASCADE CONSTRAINTS;
 drop table osoba CASCADE CONSTRAINTS;
 drop table kona_se CASCADE CONSTRAINTS;
 drop table vlastni_certifikat CASCADE CONSTRAINTS;
+drop table klient_prihlasen_na_kurz CASCADE CONSTRAINTS;
+drop table se_ucastni_lekce CASCADE CONSTRAINTS;
 
 create table osoba(
     rodne_cislo char(11) not NULL primary key, /* pocita se i lomitko*/
@@ -42,9 +44,17 @@ create table kurz(
     datum_konce date not NULL,
     obtiznost varchar(20) not NULL,
     popis varchar(100),
-    kapacita number not NULL
+    kapacita number not NULL,
     vedouci_kurzu char(11) not NULL,
     foreign key(vedouci_kurzu) references osoba(rodne_cislo) /*vazba: intruktor a kurz*/
+);
+
+create table klient_prihlasen_na_kurz( /*vazba: klient a kurz*/
+    rodne_cislo char(11),
+    ID_kurzu number,
+    foreign key(rodne_cislo) references osoba(rodne_cislo),
+    foreign key(ID_kurzu) references kurz(ID_kurzu),
+    primary key(rodne_cislo,ID_kurzu)
 );
 
 create table lekce(
@@ -59,6 +69,14 @@ create table lekce(
     foreign key(ID_kurzu) references kurz(ID_kurzu), /*vazba: obsahuje*/
     vedouci_lekce char(11) not NULL,
     foreign key(vedouci_lekce) references osoba(rodne_cislo) /*vazba: intruktor a lekce*/
+);
+
+create table se_ucastni_lekce( /*vazba: klient a lekce*/
+    rodne_cislo char(11),
+    ID_lekce number,
+    foreign key(rodne_cislo) references osoba(rodne_cislo),
+    foreign key(ID_lekce) references lekce(ID_lekce),
+    primary key(rodne_cislo,ID_lekce)
 );
 
 create table sal(
