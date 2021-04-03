@@ -93,3 +93,47 @@ create table kona_se(
     foreign key(ID_lekce) references lekce(ID_lekce),
     primary key (cislo_salu,ID_lekce)
 );
+
+insert into osoba values ('871007/7959','Henna','Lopez','+420602821936','HLoper@kmail.com',01008,'Tulska 1',13,'K',15,10);
+insert into osoba values ('611086/8464','Anna','Avila','+420770815138','AAvil33@sos.com',18078,'Bitsburska 8',7,'K',5,5);
+insert into osoba values ('447814/8477','Shay','Drake','+420608239716','ShaaaayDrake@kmail.com',78654,'Prajska 51',4,'I',50,50);
+insert into osoba values ('413117/4897','Yousif','Middleton','+421909656320','Middleton_Yos@kmail.com',46455,'Lutinska 64',7,'K',10,2);
+insert into osoba values ('181717/1697','Eoin','Schneider','+355695776182','SchneiderEOIN@kmail.com',77665,'Calska 7',9,'K',60,20);
+
+insert into certifikat values (1,'kondicny trening','prva uroven');
+insert into certifikat values (2,'zumba','druha uroven');
+insert into certifikat values (3,'Pilates','prva uroven');
+
+insert into vlastni_certifikat values ('447814/8477',1);
+insert into vlastni_certifikat values ('447814/8477',2);
+insert into vlastni_certifikat values ('447814/8477',3);
+
+insert into kurz values (1,'Pokojna mysel','Joga pre kazdeho',1500,'zaciatocnik',10,'447814/8477',DATE '2022-08-02',DATE '2022-09-03');
+insert into kurz values (2,'Wrong time','Zakladne techniky boxu',1750,'zaciatocnik',20,'447814/8477',DATE '2022-06-07',DATE '2022-07-07');
+insert into kurz values (3,'Kondicak','Kondicia na urovni',2500,'mierne pokrocily',15,'447814/8477',DATE '2022-01-12',DATE '2022-02-14');
+insert into kurz values (4,'Milo of Croton','Vzpieranie pre skusenych',3000,'pokrocily',5,'447814/8477',DATE '2022-05-15',DATE '2022-07-20');
+
+insert into klient_prihlasen_na_kurz values('871007/7959',1);
+insert into klient_prihlasen_na_kurz values('611086/8464',3);
+insert into klient_prihlasen_na_kurz values('181717/1697',4);
+insert into klient_prihlasen_na_kurz values('181717/1697',2);
+
+insert into lekce values (1,'zaklady boxu I','Prva lekcia boxu',200,'zaciatocnik',20,'447814/8477',60,2);
+insert into lekce values (2,'Prebudenie','Joga v dennom zivote',180,'zaciatocnik',20,'447814/8477',120,1);
+insert into lekce values (3,'Rychlejsi vyhra','Kruhovy trening',200,'mierne pokrocily',20,'447814/8477',90,3);
+insert into lekce values (4,'technika trhu','Dokladny rozbor techniky trhu',600,'pokrocily',5,'447814/8477',120,4);
+
+insert into se_ucastni_lekce values ('611086/8464',1);
+insert into se_ucastni_lekce values ('181717/1697',2);
+insert into se_ucastni_lekce values ('413117/4897',3);
+insert into se_ucastni_lekce values ('611086/8464',4);
+
+insert into sal values (1,25,'cinkovy set,olympijska obourucni osa,kettlebell');
+insert into sal values (2,25,'stepper,trampolina,ab wheel');
+insert into sal values (3,25,'airbike,powerball,plyometrický box,boxovacie vrece');
+
+insert into kona_se values (3,1,TIMESTAMP'2022-06-07 09:30:00.00');
+insert into kona_se values (2,2,TIMESTAMP'2022-08-09 08:00:00.00');
+insert into kona_se values (1,4,TIMESTAMP'2022-06-15 16:30:00.00');
+insert into kona_se values (3,3,TIMESTAMP'2022-01-18 15:00:00.00');
+
