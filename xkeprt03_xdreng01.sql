@@ -8,5 +8,7 @@ nazev VARCHAR(50) not null,
 uroven VARCHAR(20) not null
 );
 
+karel
+
 
 
