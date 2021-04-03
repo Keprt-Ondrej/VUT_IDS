@@ -29,7 +29,9 @@ create table lekce(
     cena number default 0,
     obtiznost varchar(20) not NULL,
     delka_lekce number not NULL,
-    popis varchar(100)
+    popis varchar(100),
+    ID_kurzu number default NULL, /*provazani mezi lekci a kurz */
+    foreign key(ID_kurzu) references kurz(ID_kurzu) /*vazba: obsahuje*/
 );
 
 create table sal(
