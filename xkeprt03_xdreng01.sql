@@ -43,6 +43,8 @@ create table kurz(
     obtiznost varchar(20) not NULL,
     popis varchar(100),
     kapacita number not NULL
+    vedouci_kurzu char(11) not NULL,
+    foreign key(vedouci_kurzu) references osoba(rodne_cislo) /*vazba: intruktor a kurz*/
 );
 
 create table lekce(
