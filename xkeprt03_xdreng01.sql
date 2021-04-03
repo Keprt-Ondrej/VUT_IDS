@@ -54,7 +54,9 @@ create table lekce(
     delka_lekce number not NULL,
     popis varchar(100),
     ID_kurzu number default NULL, /*provazani mezi lekci a kurz */
-    foreign key(ID_kurzu) references kurz(ID_kurzu) /*vazba: obsahuje*/
+    foreign key(ID_kurzu) references kurz(ID_kurzu), /*vazba: obsahuje*/
+    vedouci_lekce char(11) not NULL,
+    foreign key(vedouci_lekce) references osoba(rodne_cislo) /*vazba: intruktor a lekce*/
 );
 
 create table sal(
