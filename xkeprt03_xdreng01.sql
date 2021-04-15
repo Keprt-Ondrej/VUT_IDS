@@ -151,6 +151,27 @@ insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_do
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9001015342','Yousif','Middleton','+421909656320','Middleton_Yos@kmail.com',46455,'Lutinska 64',7,'K',10,2);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('7111255943','Eoin','Schneider','+421695776182','SchneiderEOIN@kmail.com',77665,'Calska 7',9,'K',60,20);
 
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('7504144714','Petr','Suchomel','+420775695183','suchomelp@seznam.cz',78901,'Medkova',2,'K',25,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8656046713','Monika','Bínová','+420698183577','monikabin@seznam.cz',78971,'Květná',165,'K',39,15);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('0003033492','Martin','Kostka','+420725946695','kostkamartan@gmail.cz',78985,'Mírovka',92,'I',75,30);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9861066160','Irena','Vopršálková','+420769756955','irenav25@seznam.cz',78971,'Jeremenkova',132,'K',42,20);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9558095844','Andrea','Minářová','+420735695381','mina1@seznam.cz',78961,'Severovýchod',52,'I',68,27);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9202295377','Ondra','Fričar','+420673596343','frico@seznam.cz',78901,'Krumpach',145,'K',19,5);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9405036025','Radim','Svačina','+420725695496','svacaradim65@seznam.cz',78969,'Palackého',323,'K',49,21);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9807281825','Oliver','Bezděk','+420627895333','bezda@gmail.cz',78901,'Nerudova',42,'K',38,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9951256772','Věra','Doleželová','+420658852424','dolezelka@seznam.cz',78972,'Žerotínova',8,'K',25,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9954124714','Justýna','Pajchlová','+420766952873','justa@seznam.cz',78972,'Jižní',65,'K',28,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9755213952','Jitka','Barvínková','+420639775692','jitkafitko@seznam.cz',78901,'Školská',12,'I',45,30);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9606198646','Pavel','Nývlt','+420748952612','pavkonyvlt@seznam.cz',78961,'Vodní',69,'K',5,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9509228476','Marek','Peroutka','+420674355942','perute333@seznam.cz',78985,'Hálkova',49,'K',35,20);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8855062161','Pavla','Hýblová','+420678695825','hyblpavla@seznam.cz',78985,'Okružní',72,'I',63,40);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8710168654','Matěj','Hýbl','+420772183787','hyblmatej@seznam.cz',78985,'Okružní',72,'I',69,40);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8502054803','Libor','Pecha','+420659775322','libor323@seznam.cz',78901,'Sušilova',61,'K',25,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8756190773','Michaela','Švecová','+420773698648','svec555@seznam.cz',78901,'Uničovská',41,'K',20,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8955041447','Bára','Falátová','+420622183555','falatbara@gmail.cz',78985,'Jeremenkova',139,'K',30,20);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('0158035889','Soňa','Bártová','+420756888183','bartsona15@seznam.cz',78701,'Evaldova',35,'K',35,20);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('0202140928','Robert','Hošek','+420777542542','hosek@gmail.cz',78701,'Temenická',8,'K',40,25);
+
 insert into certifikat(nazev,uroven) values ('kondicny trening','prva uroven');
 insert into certifikat(nazev,uroven) values ('zumba','druha uroven');
 insert into certifikat(nazev,uroven) values ('Pilates','prva uroven');
@@ -162,7 +183,35 @@ insert into vlastni_certifikat values ('7111122249',3);
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'zaciatocnik',10,'7111122249',DATE '2022-08-02',DATE '2022-09-03');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Wrong time','Zakladne techniky boxu',1750,'zaciatocnik',20,'7111122249',DATE '2022-06-07',DATE '2022-07-07');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Kondicak','Kondicia na urovni',2500,'mierne pokrocily',15,'7111122249',DATE '2022-01-12',DATE '2022-02-14');
-insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Milo of Croton','Vzpieranie pre skusenych',3000,'pokrocily',5,'7111122249',DATE '2022-05-15',DATE '2022-07-20');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Zumba','taneční fitnes program',2500,'začátečník',25,'8855062161',DATE '2021-04-12',DATE '2021-06-12');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Spinning','jízda na kole',2400,'začátečník',20,'8710168654',DATE '2021-05-01',DATE '2021-07-31');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Jóga','zpevnění těla a relaxace',2000,'začátečník',15,'9755213952',DATE '2021-05-01',DATE '2021-07-31');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Fitnes','cvičení na fitnes přístrojích',1000,'začátečník',25,'0003033492',DATE '2021-05-15',DATE '2021-06-30');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'začátečník',30,'9558095844',DATE '2021-05-15',DATE '2021-06-30');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Aerobik','kondiční cvičení při hudbě',800,'mírně pokročilý',35,'9755213952',DATE '2021-04-15',DATE '2021-05-15');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'začátečník',20,'8855062161',DATE '2021-04-15',DATE '2021-05-15');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',DATE '2021-05-15',DATE '2021-07-15');
+
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokrocily',5,'7111122249',120,4);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zumba','taneční fitnes program',400,'začátečník',25,'8855062161',60,4);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zumba','taneční fitnes program',600,'mírně pokročilý',25,'8855062161',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'začátečník',20,'8710168654',60,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'mírně pokročilý',20,'8710168654',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'pokročilý',20,'8710168654',120,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'bikram jóga',15,'9755213952',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',800,'pro zdravá záda',15,'9755213952',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'pro začátečníky',15,'9755213952',60,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'začátečník',25,'0003033492',60,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'pokročilý',25,'0003033492',120,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'začátečník',30,'9558095844',60,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'mírně pokročilý',30,'9558095844',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Step aerobik','vystupování na step stupínek',800,'mírně pokročilý',35,'9755213952',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Dance aerobik','aerobik s využitím tanečních kroků',800,'mírně pokročilý',35,'9755213952',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Body styling','silové cvičení určené k formování svalů',800,'mírně pokročilý',35,'9755213952',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'začátečník',20,'8855062161',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'pokročilý',20,'8855062161',120,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'pokročilý',15,'0003033492',120,5);
 
 insert into klient_prihlasen_na_kurz values('9051116932',1);
 insert into klient_prihlasen_na_kurz values('6452093747',3);
@@ -173,7 +222,8 @@ insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Prebudenie','Joga v dennom zivote',180,'zaciatocnik',20,'7111122249',120,1);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Rychlejsi vyhra','Kruhovy trening',200,'mierne pokrocily',20,'7111122249',90,3);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokrocily',5,'7111122249',120,4);
-
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika skoku','Dokladny rozbor techniky trhu',600,'pokrocily',5,'7111122249',120);
+ 
 insert into se_ucastni_lekce values ('9001015342',1);
 insert into se_ucastni_lekce values ('6452093747',2);
 insert into se_ucastni_lekce values ('9001015342',3);
@@ -187,4 +237,3 @@ insert into kona_se values (3,1,TIMESTAMP'2022-06-07 09:30:00.00');
 insert into kona_se values (2,2,TIMESTAMP'2022-08-09 08:00:00.00');
 insert into kona_se values (1,4,TIMESTAMP'2022-06-15 16:30:00.00');
 insert into kona_se values (3,3,TIMESTAMP'2022-01-18 15:00:00.00');
-
