@@ -1,5 +1,5 @@
 /*
-*   Projekt IDS - 2.cast
+*   Projekt IDS - 3.cast
 *   autors: xkeprt03, xdreng01
 */
 drop table osoba CASCADE CONSTRAINTS;
@@ -66,7 +66,8 @@ create table osoba( /*jedna tabulka pro klienta a instruktora, rozliseno typem*/
     cislo_domu number not NULL,
     typ char(1) default 'K', --K = klient, I = instruktor
     body number default 0,
-    sleva number(3) default 0,   
+    sleva number(3) default 0,
+    check(typ ='K'or typ = 'I'),
     rc_checked NUMBER GENERATED ALWAYS AS (kontrola_rc(rodne_cislo)) VIRTUAL, --abych mohl pro check pouzit funkci
     CHECK(rc_checked = 1),
     check(REGEXP_LIKE (tel_cislo,'^\+42[01][0-9]{9}$'))
@@ -144,12 +145,12 @@ create table kona_se(
     primary key (cislo_salu,ID_lekce)
 );
 
-insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ) values ('7111122249','Shay','Drake','+420608239716','ShaaaayDrake@kmail.com',78654,'Prajska 51',4,'I');
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ) values ('7111122249','Shay','Drake','+420608239716','ShaaaayDrake@kmail.com',78654,'Prajska',4,'I');
 
-insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('6452093747','Henna','Lopez','+420602821936','HLoper@kmail.com',01008,'Tulska 1',13,'K',15,10);
-insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9051116932','Anna','Avila','+420770815138','AAvil33@sos.com',18078,'Bitsburska 8',7,'K',5,5);
-insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9001015342','Yousif','Middleton','+421909656320','Middleton_Yos@kmail.com',46455,'Lutinska 64',7,'K',10,2);
-insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('7111255943','Eoin','Schneider','+421695776182','SchneiderEOIN@kmail.com',77665,'Calska 7',9,'K',60,20);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('6452093747','Henna','Lopez','+420602821936','HLoper@kmail.com',01008,'Tulska',13,'K',15,10);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9051116932','Anna','Avila','+420770815138','AAvil33@sos.com',18078,'Bitsburska',7,'K',5,5);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9001015342','Yousif','Middleton','+421909656320','Middleton_Yos@kmail.com',46455,'Lutinska',7,'K',10,2);
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('7111255943','Eoin','Schneider','+421695776182','SchneiderEOIN@kmail.com',77665,'Calska',9,'K',60,20);
 
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('7504144714','Petr','Suchomel','+420775695183','suchomelp@seznam.cz',78901,'Medkova',2,'K',25,10);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8656046713','Monika','Bínová','+420698183577','monikabin@seznam.cz',78971,'Květná',165,'K',39,15);
@@ -172,13 +173,20 @@ insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_do
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('0158035889','Soňa','Bártová','+420756888183','bartsona15@seznam.cz',78701,'Evaldova',35,'K',35,20);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('0202140928','Robert','Hošek','+420777542542','hosek@gmail.cz',78701,'Temenická',8,'K',40,25);
 
-insert into certifikat(nazev,uroven) values ('kondicny trening','prva uroven');
-insert into certifikat(nazev,uroven) values ('zumba','druha uroven');
-insert into certifikat(nazev,uroven) values ('Pilates','prva uroven');
+insert into certifikat(nazev,uroven) values ('kondicny trening','základní');
+insert into certifikat(nazev,uroven) values ('zumba','mírně pokročilý');
+insert into certifikat(nazev,uroven) values ('pilates','pokročilý');
+insert into certifikat(nazev,uroven) values ('spinning','základní');
+insert into certifikat(nazev,uroven) values ('jóga','základní');
+insert into certifikat(nazev,uroven) values ('fitnes','základní');
+insert into certifikat(nazev,uroven) values ('jóga','mírně pokročilý');
+
 
 insert into vlastni_certifikat values ('7111122249',1);
 insert into vlastni_certifikat values ('7111122249',2);
 insert into vlastni_certifikat values ('7111122249',3);
+insert into vlastni_certifikat values ('9558095844',5);
+insert into vlastni_certifikat values ('9755213952',7);
 
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'zaciatocnik',10,'7111122249',DATE '2022-08-02',DATE '2022-09-03');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Wrong time','Zakladne techniky boxu',1750,'zaciatocnik',20,'7111122249',DATE '2022-06-07',DATE '2022-07-07');
@@ -237,3 +245,17 @@ insert into kona_se values (3,1,TIMESTAMP'2022-06-07 09:30:00.00');
 insert into kona_se values (2,2,TIMESTAMP'2022-08-09 08:00:00.00');
 insert into kona_se values (1,4,TIMESTAMP'2022-06-15 16:30:00.00');
 insert into kona_se values (3,3,TIMESTAMP'2022-01-18 15:00:00.00');
+
+--vypise udaje o 
+select jmeno, prijmeni,rodne_cislo 
+from osoba where typ='I';
+
+--kteri instruktori vlastni certifikat zadany jmenem 
+select O.jmeno, O.prijmeni ,C.uroven
+from osoba O, certifikat C,vlastni_certifikat VC
+where O.rodne_cislo = VC.rodne_cislo and VC.ID_certifikatu = C.ID_certifikatu and c.nazev='jóga';
+
+--kolik je v databazi KLIENTU a kolik INSTRUKTORU
+select typ as pozice ,Count(*) pocet from osoba group by typ;
+
+
