@@ -190,7 +190,7 @@ insert into vlastni_certifikat values ('9755213952',7);
 
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'zaciatocnik',10,'7111122249',DATE '2022-08-02',DATE '2022-09-03');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Wrong time','Zakladne techniky boxu',1750,'zaciatocnik',20,'7111122249',DATE '2022-06-07',DATE '2022-07-07');
-insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Kondicak','Kondicia na urovni',2500,'mierne pokrocily',15,'7111122249',DATE '2022-01-12',DATE '2022-02-14');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Kondicak','Kondicia na urovni',2500,'mírně pokročilý',15,'7111122249',DATE '2022-01-12',DATE '2022-02-14');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Zumba','taneční fitnes program',2500,'začátečník',25,'8855062161',DATE '2021-04-12',DATE '2021-06-12');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Spinning','jízda na kole',2400,'začátečník',20,'8710168654',DATE '2021-05-01',DATE '2021-07-31');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Jóga','zpevnění těla a relaxace',2000,'začátečník',15,'9755213952',DATE '2021-05-01',DATE '2021-07-31');
@@ -200,26 +200,26 @@ insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,d
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'začátečník',20,'8855062161',DATE '2021-04-15',DATE '2021-05-15');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',DATE '2021-05-15',DATE '2021-07-15');
 
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokrocily',5,'7111122249',120,4);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokročilý',5,'7111122249',120);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zumba','taneční fitnes program',400,'začátečník',25,'8855062161',60,4);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zumba','taneční fitnes program',600,'mírně pokročilý',25,'8855062161',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zumba','taneční fitnes program',600,'mírně pokročilý',25,'8855062161',90,4);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'začátečník',20,'8710168654',60,5);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'mírně pokročilý',20,'8710168654',90,5);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'pokročilý',20,'8710168654',120,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'bikram jóga',15,'9755213952',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',800,'pro zdravá záda',15,'9755213952',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'pro začátečníky',15,'9755213952',60,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'začátečník',25,'0003033492',60,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'pokročilý',25,'0003033492',120,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'začátečník',30,'9558095844',60,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'mírně pokročilý',30,'9558095844',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Step aerobik','vystupování na step stupínek',800,'mírně pokročilý',35,'9755213952',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Dance aerobik','aerobik s využitím tanečních kroků',800,'mírně pokročilý',35,'9755213952',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Body styling','silové cvičení určené k formování svalů',800,'mírně pokročilý',35,'9755213952',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'začátečník',20,'8855062161',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'pokročilý',20,'8855062161',120,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'bikram jóga',15,'9755213952',90,6);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',800,'pro zdravá záda',15,'9755213952',90,6);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'pro začátečníky',15,'9755213952',60,6);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'začátečník',25,'0003033492',60,7);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'pokročilý',25,'0003033492',120,7);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'začátečník',30,'9558095844',60,8);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'mírně pokročilý',30,'9558095844',90,8);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Step aerobik','vystupování na step stupínek',800,'mírně pokročilý',35,'9755213952',90,9);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Dance aerobik','aerobik s využitím tanečních kroků',800,'mírně pokročilý',35,'9755213952',90,9);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('Body styling','silové cvičení určené k formování svalů',800,'mírně pokročilý',35,'9755213952',90);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'začátečník',20,'8855062161',90,10);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'pokročilý',20,'8855062161',120,10);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',90,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'pokročilý',15,'0003033492',120,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'pokročilý',15,'0003033492',120,11);
 
 insert into klient_prihlasen_na_kurz values('9051116932',1);
 insert into klient_prihlasen_na_kurz values('6452093747',3);
@@ -228,9 +228,10 @@ insert into klient_prihlasen_na_kurz values('7111255943',2);
 
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zaklady boxu I','Prva lekcia boxu',200,'zaciatocnik',20,'7111122249',60,2);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Prebudenie','Joga v dennom zivote',180,'zaciatocnik',20,'7111122249',120,1);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Rychlejsi vyhra','Kruhovy trening',200,'mierne pokrocily',20,'7111122249',90,3);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokrocily',5,'7111122249',120,4);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika skoku','Dokladny rozbor techniky trhu',600,'pokrocily',5,'7111122249',120);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Rychlejsi vyhra','Kruhovy trening',200,'mírně pokročilý',20,'7111122249',90,3);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokročilý',5,'7111122249',120);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika skoku','Dokladny rozbor techniky skoku',600,'pokročilý',5,'7111122249',120);
+ 
  
 insert into se_ucastni_lekce values ('9001015342',1);
 insert into se_ucastni_lekce values ('6452093747',2);
@@ -240,11 +241,13 @@ insert into se_ucastni_lekce values ('9001015342',4);
 insert into sal values (1,25,'cinkovy set,olympijska obourucni osa,kettlebell');
 insert into sal values (2,25,'stepper,trampolina,ab wheel');
 insert into sal values (3,25,'airbike,powerball,plyometrický box,boxovacie vrece');
+insert into sal values (10,30,'karimatky');
 
 insert into kona_se values (3,1,TIMESTAMP'2022-06-07 09:30:00.00');
 insert into kona_se values (2,2,TIMESTAMP'2022-08-09 08:00:00.00');
 insert into kona_se values (1,4,TIMESTAMP'2022-06-15 16:30:00.00');
 insert into kona_se values (3,3,TIMESTAMP'2022-01-18 15:00:00.00');
+
 
 --vypise udaje o 
 select jmeno, prijmeni,rodne_cislo 
@@ -258,4 +261,14 @@ where O.rodne_cislo = VC.rodne_cislo and VC.ID_certifikatu = C.ID_certifikatu an
 --kolik je v databazi KLIENTU a kolik INSTRUKTORU
 select typ as pozice ,Count(*) pocet from osoba group by typ;
 
+--vypis lidi co bydli v urcitem meste
+select jmeno, prijmeni from osoba where PSC=78985
+
+select L.typ, L.popis, L.cena, L.obtiznost
+from lekce L, kurz K
+where L.ID_kurzu = K.ID_kurzu and K.typ ='Jóga';
+
+select L.obtiznost, count(*) as pocet
+from lekce L
+group by L.obtiznost
 
