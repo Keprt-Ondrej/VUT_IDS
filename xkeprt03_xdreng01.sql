@@ -166,12 +166,10 @@ end;
 /
 
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ) values ('7111122249','Shay','Drake','+420608239716','ShaaaayDrake@kmail.com',78654,'Prajska',4,'I');
-
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('6452093747','Henna','Lopez','+420602821936','HLoper@kmail.com',01008,'Tulska',13,'K',15,10);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9051116932','Anna','Avila','+420770815138','AAvil33@sos.com',18078,'Bitsburska',7,'K',5,5);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9001015342','Yousif','Middleton','+421909656320','Middleton_Yos@kmail.com',46455,'Lutinska',7,'K',10,2);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('7111255943','Eoin','Schneider','+421695776182','SchneiderEOIN@kmail.com',77665,'Calska',9,'K',60,20);
-
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('7504144714','Petr','Suchomel','+420775695183','suchomelp@seznam.cz',78901,'Medkova',2,'K',25,10);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('8656046713','Monika','Bínová','+420698183577','monikabin@seznam.cz',78971,'Květná',165,'K',39,15);
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('0003033492','Martin','Kostka','+420725946695','kostkamartan@gmail.cz',78985,'Mírovka',92,'I',75,30);
@@ -200,16 +198,33 @@ insert into certifikat(nazev,uroven) values ('spinning','základní');
 insert into certifikat(nazev,uroven) values ('jóga','základní');
 insert into certifikat(nazev,uroven) values ('fitnes','základní');
 insert into certifikat(nazev,uroven) values ('jóga','mírně pokročilý');
-
+insert into certifikat(nazev,uroven) values ('aerobik','mírně pokročilý');
+insert into certifikat(nazev,uroven) values ('taekwondo','pokročilý');
 
 insert into vlastni_certifikat values ('7111122249',1);
 insert into vlastni_certifikat values ('7111122249',2);
 insert into vlastni_certifikat values ('7111122249',3);
 insert into vlastni_certifikat values ('9558095844',5);
+insert into vlastni_certifikat values ('9558095844',4);
+insert into vlastni_certifikat values ('9558095844',1);
 insert into vlastni_certifikat values ('9755213952',7);
+insert into vlastni_certifikat values ('9755213952',2);
+insert into vlastni_certifikat values ('9755213952',4);
+insert into vlastni_certifikat values ('8855062161',2);
+insert into vlastni_certifikat values ('8855062161',8);
+insert into vlastni_certifikat values ('8710168654',4);
+insert into vlastni_certifikat values ('0003033492',6);
+insert into vlastni_certifikat values ('0003033492',1);
+insert into vlastni_certifikat values ('9558095844',3);
+insert into vlastni_certifikat values ('9755213952',8);
+insert into vlastni_certifikat values ('9755213952',1);
+insert into vlastni_certifikat values ('8855062161',6);
+insert into vlastni_certifikat values ('0003033492',9);
+insert into vlastni_certifikat values ('0003033492',8);
+insert into vlastni_certifikat values ('0003033492',4);
 
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'7111122249',DATE '2022-08-02',DATE '2022-09-03');
-insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Wrong time','Zakladne techniky boxu',1750,'začátečník',20,'7111122249',DATE '2022-06-07',DATE '2022-07-07');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Box','Zakladne techniky boxu',1750,'začátečník',20,'7111122249',DATE '2022-06-07',DATE '2022-07-07');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Kondicak','Kondicia na urovni',2500,'mírně pokročilý',15,'7111122249',DATE '2022-01-12',DATE '2022-02-14');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Zumba','taneční fitnes program',2500,'začátečník',25,'8855062161',DATE '2021-04-12',DATE '2021-06-12');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Spinning','jízda na kole',2400,'začátečník',20,'8710168654',DATE '2021-05-01',DATE '2021-07-31');
@@ -238,47 +253,108 @@ insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('Body styling','silové cvičení určené k formování svalů',800,'mírně pokročilý',35,'9755213952',90);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'začátečník',20,'8855062161',90,10);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Cvičení s gumou','kondice a pěkná postava s tréninkovou pomůckou',600,'pokročilý',20,'8855062161',120,10);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',90,5);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',90,11);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'pokročilý',15,'0003033492',120,11);
 
-
-
-
-insert into klient_prihlasen_na_kurz values('9051116932',1);
-insert into klient_prihlasen_na_kurz values('6452093747',3);
-insert into klient_prihlasen_na_kurz values('9001015342',4);
-insert into klient_prihlasen_na_kurz values('7111255943',2);
+--pokud se klient prihlasi na kurz, mel by byt pomoci triggeru automaticky prihlasen na vsechny lekce kurzu
+insert into klient_prihlasen_na_kurz values('9861066160',1);
+insert into klient_prihlasen_na_kurz values('9861066160',3);
+insert into klient_prihlasen_na_kurz values('9861066160',11);
+insert into klient_prihlasen_na_kurz values('9202295377',2);
+insert into klient_prihlasen_na_kurz values('9202295377',8);
+insert into klient_prihlasen_na_kurz values('9405036025',3);
+insert into klient_prihlasen_na_kurz values('9405036025',7);
+insert into klient_prihlasen_na_kurz values('9807281825',4);
+insert into klient_prihlasen_na_kurz values('9951256772',5);
+insert into klient_prihlasen_na_kurz values('9951256772',1);
+insert into klient_prihlasen_na_kurz values('9954124714',6);
+insert into klient_prihlasen_na_kurz values('9954124714',10);
+insert into klient_prihlasen_na_kurz values('9606198646',7);
+insert into klient_prihlasen_na_kurz values('9606198646',8);
+insert into klient_prihlasen_na_kurz values('9606198646',10);
+insert into klient_prihlasen_na_kurz values('9606198646',11);
+insert into klient_prihlasen_na_kurz values('9509228476',8);
+insert into klient_prihlasen_na_kurz values('9509228476',3);
+insert into klient_prihlasen_na_kurz values('8502054803',9);
+insert into klient_prihlasen_na_kurz values('8502054803',4);
+insert into klient_prihlasen_na_kurz values('8502054803',8);
+insert into klient_prihlasen_na_kurz values('8756190773',10);
+insert into klient_prihlasen_na_kurz values('8756190773',5);
+insert into klient_prihlasen_na_kurz values('8955041447',11);
+insert into klient_prihlasen_na_kurz values('8955041447',8);
+insert into klient_prihlasen_na_kurz values('8955041447',7);
+insert into klient_prihlasen_na_kurz values('0158035889',1);
+insert into klient_prihlasen_na_kurz values('8656046713',2);
+insert into klient_prihlasen_na_kurz values('7504144714',3);
+insert into klient_prihlasen_na_kurz values('7504144714',8);
+insert into klient_prihlasen_na_kurz values('7111255943',4);
+insert into klient_prihlasen_na_kurz values('9001015342',5);
 
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zaklady boxu I','Prva lekcia boxu',200,'začátečník',20,'7111122249',60,2);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Prebudenie','Joga v dennom zivote',180,'začátečník',20,'7111122249',120,1);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Rychlejsi vyhra','Kruhovy trening',200,'mírně pokročilý',20,'7111122249',90,3);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokročilý',5,'7111122249',120);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika skoku','Dokladny rozbor techniky skoku',600,'pokročilý',5,'7111122249',120);
- 
- 
-insert into se_ucastni_lekce values ('9001015342',1);
-insert into se_ucastni_lekce values ('6452093747',1);
-insert into se_ucastni_lekce values ('9001015342',5);
-insert into se_ucastni_lekce values ('9001015342',4);
-insert into se_ucastni_lekce values ('9509228476',3);
-insert into se_ucastni_lekce values ('9954124714',7);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika trhu','Dokladny rozbor techniky trhu',600,'začátečník',5,'7111122249',120);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika skoku','Dokladny rozbor techniky skoku',600,'pokročilý',5,'7111122249',120); 
+
+--ulozeni do lekci ktere nejsou v zadnem kurzu
+insert into se_ucastni_lekce values ('9954124714',25);
+insert into se_ucastni_lekce values ('9509228476',25);
+insert into se_ucastni_lekce values ('8756190773',25);
+insert into se_ucastni_lekce values ('9051116932',1);
+insert into se_ucastni_lekce values ('9509228476',1);
+insert into se_ucastni_lekce values ('8756190773',1);
+insert into se_ucastni_lekce values ('8756190773',24);
+insert into se_ucastni_lekce values ('9001015342',24);
+insert into se_ucastni_lekce values ('8656046713',16);
+insert into se_ucastni_lekce values ('9954124714',16);
+insert into se_ucastni_lekce values ('9606198646',24);
 
 insert into sal values (1,25,'cinkovy set,olympijska obourucni osa,kettlebell');
 insert into sal values (2,25,'stepper,trampolina,ab wheel');
 insert into sal values (3,25,'airbike,powerball,plyometrický box,boxovacie vrece');
-insert into sal values (10,30,'karimatky');
+insert into sal values (4,30,'karimatky');
 
-insert into kona_se values (3,1,TIMESTAMP'2022-06-07 09:30:00.00');
-insert into kona_se values (2,2,TIMESTAMP'2022-08-09 08:00:00.00');
-insert into kona_se values (1,4,TIMESTAMP'2022-06-15 16:30:00.00');
-insert into kona_se values (3,3,TIMESTAMP'2022-01-18 15:00:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (1,1,TIMESTAMP'2021-06-07 11:30:00.00');
 
-insert into kona_se values (10,7,TIMESTAMP'2022-01-18 15:00:00.00');
-insert into kona_se values (10,8,TIMESTAMP'2022-03-18 15:00:00.00');
-insert into kona_se values (10,9,TIMESTAMP'2022-04-18 15:00:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,2,TIMESTAMP'2021-05-01 09:30:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,3,TIMESTAMP'2021-05-20 09:30:00.00');
 
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,4,TIMESTAMP'2021-05-07 13:00:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,5,TIMESTAMP'2021-06-07 13:00:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,6,TIMESTAMP'2021-07-07 13:00:00.00');
 
---vypise udaje o 
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,7,TIMESTAMP'2021-05-03 11:30:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,8,TIMESTAMP'2021-06-20 11:30:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,9,TIMESTAMP'2021-07-09 11:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,10,TIMESTAMP'2021-05-20 14:30:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,11,TIMESTAMP'2021-06-18 14:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,12,TIMESTAMP'2021-06-20 18:30:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,13,TIMESTAMP'2021-06-25 18:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,14,TIMESTAMP'2021-05-25 15:00:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (2,15,TIMESTAMP'2021-05-30 15:00:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (1,16,TIMESTAMP'2021-09-07 8:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,17,TIMESTAMP'2021-04-20 10:00:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,18,TIMESTAMP'2021-05-05 10:00:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (3,19,TIMESTAMP'2021-05-20 16:30:00.00');
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (3,20,TIMESTAMP'2021-06-25 16:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (3,21,TIMESTAMP'2021-06-07 16:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (4,22,TIMESTAMP'2022-06-07 17:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (1,23,TIMESTAMP'2022-08-05 09:00:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (1,24,TIMESTAMP'2022-06-30 12:30:00.00');
+
+insert into kona_se(cislo_salu,ID_lekce,datum_cas) values (1,25,TIMESTAMP'2022-08-04 19:30:00.00');
+
+--vypise udaje o instruktorovi
 select jmeno, prijmeni,rodne_cislo 
 from osoba where typ='I';
 
@@ -312,9 +388,9 @@ from lekce L
 group by L.obtiznost;
 
 --vypise vsechny lekce, ktere nejsou v zadnem kurzu a jejich vedouciho
-select L.typ, L.popis ,L.cena, O.jmeno, O.prijmeni, O.tel_cislo
-from lekce L, osoba O
-where L.vedouci_lekce = O.rodne_cislo and ID_kurzu is NULL;
+select L.typ, L.popis ,L.cena, T.cislo_salu, T.datum_cas as zacatek,O.jmeno, O.prijmeni, O.tel_cislo
+from lekce L, osoba O ,kona_se T
+where L.ID_lekce = T.ID_lekce and L.vedouci_lekce = O.rodne_cislo and ID_kurzu is NULL;
 
 --vytizenost instruktora / kde se v jaky cas +- nachazi
 -- co vede za lekce
@@ -325,7 +401,7 @@ where L.ID_lekce = T.ID_lekce and  L.vedouci_lekce = O.rodne_cislo and rodne_cis
 --rozvrh salu zadaneho cislem salu
 select L.typ, T.datum_cas, L.delka_lekce 
 from kona_se T, lekce L
-where T.ID_lekce = L.ID_lekce and T.cislo_salu = 10;
+where T.ID_lekce = L.ID_lekce and T.cislo_salu = 4;
 
 --zobrazi naplnenost vsech lekci
 select  UL.ID_lekce,L.typ,count(UL.ID_lekce) as pocet_ucastniku
@@ -343,7 +419,7 @@ group by UK.ID_kurzu,K.typ;
 --budu je chtit treba kontaktovat pri nahlem zruseni lekce
 select O.jmeno, O.prijmeni, O.tel_cislo, O.email
 from osoba O, se_ucastni_lekce UL
-where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = 1;
+where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = 11;
 
 --ucastnici daneho kurzu
 --budu je chtit treba kontaktovat pri nahlem zruseni kurzu apod.
@@ -354,7 +430,7 @@ where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = 1;
 --co za kurzy ma osoba prihlasena 
 select K.typ, K.popis, K.ID_kurzu
 from osoba O, klient_prihlasen_na_kurz UK, kurz K
-where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = K.ID_kurzu and O.rodne_cislo = 9001015342;
+where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = K.ID_kurzu and O.rodne_cislo = 9606198646;
 
 --co za lekce ma osoba prihlasena 
 select L.typ, L.popis, L.ID_lekce
@@ -367,4 +443,6 @@ select O.jmeno, O.prijmeni, O.tel_cislo, O.email
 from osoba O
 where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
-                                where UL.rodne_cislo = O.rodne_cislo);  
+                                where UL.rodne_cislo = O.rodne_cislo);     
+                                
+                       
