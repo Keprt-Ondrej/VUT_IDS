@@ -248,6 +248,10 @@ insert into kona_se values (2,2,TIMESTAMP'2022-08-09 08:00:00.00');
 insert into kona_se values (1,4,TIMESTAMP'2022-06-15 16:30:00.00');
 insert into kona_se values (3,3,TIMESTAMP'2022-01-18 15:00:00.00');
 
+insert into kona_se values (10,7,TIMESTAMP'2022-01-18 15:00:00.00');
+insert into kona_se values (10,8,TIMESTAMP'2022-03-18 15:00:00.00');
+insert into kona_se values (10,9,TIMESTAMP'2022-04-18 15:00:00.00');
+
 
 --vypise udaje o 
 select jmeno, prijmeni,rodne_cislo 
@@ -258,17 +262,42 @@ select O.jmeno, O.prijmeni ,C.uroven
 from osoba O, certifikat C,vlastni_certifikat VC
 where O.rodne_cislo = VC.rodne_cislo and VC.ID_certifikatu = C.ID_certifikatu and c.nazev='jóga';
 
+--informace, jake vlastni osoba certifikaty
+--kvalifikovanost instruktora
+select C.nazev, C.uroven
+from osoba O, vlastni_certifikat VC, certifikat C
+where O.rodne_cislo = VC.rodne_cislo and VC.ID_certifikatu = C.ID_certifikatu and O.rodne_cislo = 7111122249;
+
 --kolik je v databazi KLIENTU a kolik INSTRUKTORU
 select typ as pozice ,Count(*) pocet from osoba group by typ;
 
 --vypis lidi co bydli v urcitem meste
-select jmeno, prijmeni from osoba where PSC=78985
+select jmeno, prijmeni from osoba where PSC=78985;
 
-select L.typ, L.popis, L.cena, L.obtiznost
-from lekce L, kurz K
-where L.ID_kurzu = K.ID_kurzu and K.typ ='Jóga';
+--Vypise jednotlivych lekci kurzu zadaneho jmenem
+select L.typ, L.popis, L.cena, L.obtiznost, L.delka_lekce, T.cislo_salu, T.datum_cas as zacatek
+from lekce L, kurz K, kona_se T
+where L.ID_kurzu = K.ID_kurzu and L.ID_lekce = T.ID_lekce and K.typ ='Jóga';
 
+--vypise pocet lekci podle urovni
+--data pro oddeleni marketingu nebo vedouciho, aby vedel jake lekce dale vymyslet apod.
 select L.obtiznost, count(*) as pocet
 from lekce L
-group by L.obtiznost
+group by L.obtiznost;
+
+--vypise vsechny lekce, ktere nejsou v zadnem kurzu a jejich vedouciho
+select L.typ, L.popis ,L.cena, O.jmeno, O.prijmeni, O.tel_cislo
+from lekce L, osoba O
+where L.vedouci_lekce = O.rodne_cislo and ID_kurzu is NULL;
+
+--vytizenost instruktora / kde se v jaky cas +- nachazi
+-- co vede za lekce
+select   O.jmeno, O.prijmeni,T.datum_cas as zacatek,L.delka_lekce, T.cislo_salu
+from osoba O, lekce L, kona_se T
+where L.ID_lekce = T.ID_lekce and  L.vedouci_lekce = O.rodne_cislo and rodne_cislo=9755213952;
+
+--rozvrh salu zadaneho cislem salu
+select L.typ, T.datum_cas, L.delka_lekce 
+from kona_se T, lekce L
+where T.ID_lekce = L.ID_lekce and T.cislo_salu = 10;
 
