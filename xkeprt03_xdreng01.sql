@@ -2,6 +2,7 @@
 *   Projekt IDS - 3.cast
 *   autors: xkeprt03, xdreng01
 */
+set serveroutput ON
 drop table osoba CASCADE CONSTRAINTS;
 drop table certifikat CASCADE CONSTRAINTS;
 drop table kurz CASCADE CONSTRAINTS;
@@ -145,6 +146,25 @@ create table kona_se(
     primary key (cislo_salu,ID_lekce)
 );
 
+
+--pokud se nekdo prida na kurz, je automaticky pridan na vsechny jeho lekce 
+create or replace trigger auto_ucastni_lekci_kdyz_je_v_kurzu
+after insert on klient_prihlasen_na_kurz
+for each row
+enable
+declare
+    cursor lekce_kurzu is select L.* from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=:NEW.ID_kurzu;
+    record lekce_kurzu%ROWTYPE;
+begin
+   
+    for record in lekce_kurzu loop                   
+         insert into se_ucastni_lekce values (:NEW.rodne_cislo,record.ID_lekce);
+         dbms_output.put_line('osoba: '||:NEW.rodne_cislo||' pridana na lekci: '||record.ID_lekce);
+    end loop;   
+   -- dbms_output.put_line(:NEW.rodne_cislo);
+end;
+/
+
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ) values ('7111122249','Shay','Drake','+420608239716','ShaaaayDrake@kmail.com',78654,'Prajska',4,'I');
 
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('6452093747','Henna','Lopez','+420602821936','HLoper@kmail.com',01008,'Tulska',13,'K',15,10);
@@ -188,8 +208,8 @@ insert into vlastni_certifikat values ('7111122249',3);
 insert into vlastni_certifikat values ('9558095844',5);
 insert into vlastni_certifikat values ('9755213952',7);
 
-insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'zaciatocnik',10,'7111122249',DATE '2022-08-02',DATE '2022-09-03');
-insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Wrong time','Zakladne techniky boxu',1750,'zaciatocnik',20,'7111122249',DATE '2022-06-07',DATE '2022-07-07');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'7111122249',DATE '2022-08-02',DATE '2022-09-03');
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Wrong time','Zakladne techniky boxu',1750,'začátečník',20,'7111122249',DATE '2022-06-07',DATE '2022-07-07');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Kondicak','Kondicia na urovni',2500,'mírně pokročilý',15,'7111122249',DATE '2022-01-12',DATE '2022-02-14');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Zumba','taneční fitnes program',2500,'začátečník',25,'8855062161',DATE '2021-04-12',DATE '2021-06-12');
 insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Spinning','jízda na kole',2400,'začátečník',20,'8710168654',DATE '2021-05-01',DATE '2021-07-31');
@@ -206,9 +226,9 @@ insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'začátečník',20,'8710168654',60,5);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'mírně pokročilý',20,'8710168654',90,5);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Spinning','jízda na kole',800,'pokročilý',20,'8710168654',120,5);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'bikram jóga',15,'9755213952',90,6);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',800,'pro zdravá záda',15,'9755213952',90,6);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'pro začátečníky',15,'9755213952',60,6);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'začátečník',15,'9755213952',90,6);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',800,'mírně pokročilý',15,'9755213952',90,6);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'začátečník',15,'9755213952',60,6);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'začátečník',25,'0003033492',60,7);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Fitnes','cvičení na fitnes přístrojích',1000,'pokročilý',25,'0003033492',120,7);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Pilates','cvičení pro tělesnou a duševní kondici',500,'začátečník',30,'9558095844',60,8);
@@ -221,21 +241,24 @@ insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',90,5);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'pokročilý',15,'0003033492',120,11);
 
+
+
+
 insert into klient_prihlasen_na_kurz values('9051116932',1);
 insert into klient_prihlasen_na_kurz values('6452093747',3);
 insert into klient_prihlasen_na_kurz values('9001015342',4);
 insert into klient_prihlasen_na_kurz values('7111255943',2);
 
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zaklady boxu I','Prva lekcia boxu',200,'zaciatocnik',20,'7111122249',60,2);
-insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Prebudenie','Joga v dennom zivote',180,'zaciatocnik',20,'7111122249',120,1);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zaklady boxu I','Prva lekcia boxu',200,'začátečník',20,'7111122249',60,2);
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Prebudenie','Joga v dennom zivote',180,'začátečník',20,'7111122249',120,1);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Rychlejsi vyhra','Kruhovy trening',200,'mírně pokročilý',20,'7111122249',90,3);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika trhu','Dokladny rozbor techniky trhu',600,'pokročilý',5,'7111122249',120);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce) values ('technika skoku','Dokladny rozbor techniky skoku',600,'pokročilý',5,'7111122249',120);
  
  
 insert into se_ucastni_lekce values ('9001015342',1);
-insert into se_ucastni_lekce values ('6452093747',2);
-insert into se_ucastni_lekce values ('9001015342',3);
+insert into se_ucastni_lekce values ('6452093747',1);
+insert into se_ucastni_lekce values ('9001015342',5);
 insert into se_ucastni_lekce values ('9001015342',4);
 insert into se_ucastni_lekce values ('9509228476',3);
 insert into se_ucastni_lekce values ('9954124714',7);
@@ -263,6 +286,7 @@ from osoba where typ='I';
 select O.jmeno, O.prijmeni ,C.uroven
 from osoba O, certifikat C,vlastni_certifikat VC
 where O.rodne_cislo = VC.rodne_cislo and VC.ID_certifikatu = C.ID_certifikatu and c.nazev='jóga'; --c.ID_certifikatu = 5;
+--pokud vyhledavam podle nazvu, mohou se mi zobrazit rozne urovne, podle ID pouze pro danou uroven
 
 --informace, jake vlastni osoba certifikaty
 --kvalifikovanost instruktora
@@ -276,10 +300,10 @@ select typ as pozice ,Count(*) pocet from osoba group by typ;
 --vypis lidi co bydli v urcitem meste
 select jmeno, prijmeni from osoba where PSC=78985;
 
---Vypise jednotlive lekce kurzu zadaneho jmenem
+--Vypise jednotlive lekce kurzu 
 select L.typ, L.popis, L.cena, L.obtiznost, L.delka_lekce, T.cislo_salu, T.datum_cas as zacatek
 from lekce L, kurz K, kona_se T
-where L.ID_kurzu = K.ID_kurzu and L.ID_lekce = T.ID_lekce and K.typ ='Jóga';
+where L.ID_kurzu = K.ID_kurzu and L.ID_lekce = T.ID_lekce and K.ID_kurzu = 6;
 
 --vypise pocet lekci podle urovni
 --data pro oddeleni marketingu nebo vedouciho, aby vedel jake lekce dale vymyslet apod.
@@ -294,7 +318,7 @@ where L.vedouci_lekce = O.rodne_cislo and ID_kurzu is NULL;
 
 --vytizenost instruktora / kde se v jaky cas +- nachazi
 -- co vede za lekce
-select   O.jmeno, O.prijmeni,T.datum_cas as zacatek,L.delka_lekce, T.cislo_salu
+select   L.ID_lekce,L.typ,T.datum_cas as zacatek,L.delka_lekce, T.cislo_salu
 from osoba O, lekce L, kona_se T
 where L.ID_lekce = T.ID_lekce and  L.vedouci_lekce = O.rodne_cislo and rodne_cislo=9755213952;
 
@@ -330,12 +354,12 @@ where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = 1;
 --co za kurzy ma osoba prihlasena 
 select K.typ, K.popis, K.ID_kurzu
 from osoba O, klient_prihlasen_na_kurz UK, kurz K
-where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = K.ID_kurzu and O.jmeno='Yousif' and O.prijmeni ='Middleton'; -- nebo podle rodneho cisla: O.rodne_cislo = 9001015342;
+where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = K.ID_kurzu and O.rodne_cislo = 9001015342;
 
 --co za lekce ma osoba prihlasena 
 select L.typ, L.popis, L.ID_lekce
 from osoba O, se_ucastni_lekce UL, lekce L
-where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = L.ID_lekce and O.jmeno='Yousif' and O.prijmeni ='Middleton'; -- nebo podle rodneho cisla: O.rodne_cislo = 9001015342;
+where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = L.ID_lekce and O.rodne_cislo = 9001015342;
 
 --seznam klientu, co se neucastni zadne lekce
 --marketing: pro zaslani nabidky novych lekci apod
@@ -343,4 +367,4 @@ select O.jmeno, O.prijmeni, O.tel_cislo, O.email
 from osoba O
 where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
-                                where UL.rodne_cislo = O.rodne_cislo);
+                                where UL.rodne_cislo = O.rodne_cislo);  
