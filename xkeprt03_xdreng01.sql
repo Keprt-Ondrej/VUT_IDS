@@ -238,6 +238,7 @@ insert into se_ucastni_lekce values ('6452093747',2);
 insert into se_ucastni_lekce values ('9001015342',3);
 insert into se_ucastni_lekce values ('9001015342',4);
 insert into se_ucastni_lekce values ('9509228476',3);
+insert into se_ucastni_lekce values ('9954124714',7);
 
 insert into sal values (1,25,'cinkovy set,olympijska obourucni osa,kettlebell');
 insert into sal values (2,25,'stepper,trampolina,ab wheel');
@@ -334,7 +335,12 @@ where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = K.ID_kurzu and O.jmeno='Y
 --co za lekce ma osoba prihlasena 
 select L.typ, L.popis, L.ID_lekce
 from osoba O, se_ucastni_lekce UL, lekce L
-where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = L.ID_lekce and O.jmeno='Yousif' and O.prijmeni ='Middleton' -- nebo podle rodneho cisla: O.rodne_cislo = 9001015342;
+where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = L.ID_lekce and O.jmeno='Yousif' and O.prijmeni ='Middleton'; -- nebo podle rodneho cisla: O.rodne_cislo = 9001015342;
 
-
-
+--seznam klientu, co se neucastni zadne lekce
+--marketing: pro zaslani nabidky novych lekci apod
+select O.jmeno, O.prijmeni, O.tel_cislo, O.email
+from osoba O
+where O.typ ='K'and not exists (select UL.rodne_cislo
+                                from se_ucastni_lekce UL 
+                                where UL.rodne_cislo = O.rodne_cislo);
