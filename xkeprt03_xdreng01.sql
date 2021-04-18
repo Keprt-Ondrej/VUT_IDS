@@ -237,6 +237,7 @@ insert into se_ucastni_lekce values ('9001015342',1);
 insert into se_ucastni_lekce values ('6452093747',2);
 insert into se_ucastni_lekce values ('9001015342',3);
 insert into se_ucastni_lekce values ('9001015342',4);
+insert into se_ucastni_lekce values ('9509228476',3);
 
 insert into sal values (1,25,'cinkovy set,olympijska obourucni osa,kettlebell');
 insert into sal values (2,25,'stepper,trampolina,ab wheel');
@@ -257,10 +258,10 @@ insert into kona_se values (10,9,TIMESTAMP'2022-04-18 15:00:00.00');
 select jmeno, prijmeni,rodne_cislo 
 from osoba where typ='I';
 
---kteri instruktori vlastni certifikat zadany jmenem 
+--kteri instruktori vlastni dany certifikat 
 select O.jmeno, O.prijmeni ,C.uroven
 from osoba O, certifikat C,vlastni_certifikat VC
-where O.rodne_cislo = VC.rodne_cislo and VC.ID_certifikatu = C.ID_certifikatu and c.nazev='jóga';
+where O.rodne_cislo = VC.rodne_cislo and VC.ID_certifikatu = C.ID_certifikatu and c.nazev='jóga'; --c.ID_certifikatu = 5;
 
 --informace, jake vlastni osoba certifikaty
 --kvalifikovanost instruktora
@@ -274,7 +275,7 @@ select typ as pozice ,Count(*) pocet from osoba group by typ;
 --vypis lidi co bydli v urcitem meste
 select jmeno, prijmeni from osoba where PSC=78985;
 
---Vypise jednotlivych lekci kurzu zadaneho jmenem
+--Vypise jednotlive lekce kurzu zadaneho jmenem
 select L.typ, L.popis, L.cena, L.obtiznost, L.delka_lekce, T.cislo_salu, T.datum_cas as zacatek
 from lekce L, kurz K, kona_se T
 where L.ID_kurzu = K.ID_kurzu and L.ID_lekce = T.ID_lekce and K.typ ='Jóga';
@@ -300,4 +301,40 @@ where L.ID_lekce = T.ID_lekce and  L.vedouci_lekce = O.rodne_cislo and rodne_cis
 select L.typ, T.datum_cas, L.delka_lekce 
 from kona_se T, lekce L
 where T.ID_lekce = L.ID_lekce and T.cislo_salu = 10;
+
+--zobrazi naplnenost vsech lekci
+select  UL.ID_lekce,L.typ,count(UL.ID_lekce) as pocet_ucastniku
+from se_ucastni_lekce UL, lekce L
+where UL.ID_lekce = L.ID_lekce
+group by UL.ID_lekce,L.typ;
+
+--zobrazi naplnenost vsech kurzu
+select  UK.ID_kurzu,K.typ,count(UK.ID_kurzu) as pocet_ucastniku
+from klient_prihlasen_na_kurz UK, kurz K
+where UK.ID_kurzu = K.ID_kurzu
+group by UK.ID_kurzu,K.typ;
+
+--ucastnici dane lekce
+--budu je chtit treba kontaktovat pri nahlem zruseni lekce
+select O.jmeno, O.prijmeni, O.tel_cislo, O.email
+from osoba O, se_ucastni_lekce UL
+where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = 1;
+
+--ucastnici daneho kurzu
+--budu je chtit treba kontaktovat pri nahlem zruseni kurzu apod.
+select O.jmeno, O.prijmeni, O.tel_cislo, O.email
+from osoba O, klient_prihlasen_na_kurz UK
+where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = 1; 
+
+--co za kurzy ma osoba prihlasena 
+select K.typ, K.popis, K.ID_kurzu
+from osoba O, klient_prihlasen_na_kurz UK, kurz K
+where O.rodne_cislo = UK.rodne_cislo and UK.ID_kurzu = K.ID_kurzu and O.jmeno='Yousif' and O.prijmeni ='Middleton'; -- nebo podle rodneho cisla: O.rodne_cislo = 9001015342;
+
+--co za lekce ma osoba prihlasena 
+select L.typ, L.popis, L.ID_lekce
+from osoba O, se_ucastni_lekce UL, lekce L
+where O.rodne_cislo = UL.rodne_cislo and UL.ID_lekce = L.ID_lekce and O.jmeno='Yousif' and O.prijmeni ='Middleton' -- nebo podle rodneho cisla: O.rodne_cislo = 9001015342;
+
+
 
