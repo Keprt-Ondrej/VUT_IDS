@@ -153,13 +153,32 @@ after insert on klient_prihlasen_na_kurz
 for each row
 enable
 declare
-    cursor lekce_kurzu is select L.* from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=:NEW.ID_kurzu;
+    cursor lekce_kurzu is select L.ID_lekce from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=:NEW.ID_kurzu;
     record lekce_kurzu%ROWTYPE;
 begin
    
     for record in lekce_kurzu loop                   
          insert into se_ucastni_lekce values (:NEW.rodne_cislo,record.ID_lekce);
          dbms_output.put_line('osoba: '||:NEW.rodne_cislo||' pridana na lekci: '||record.ID_lekce);
+    end loop;   
+   -- dbms_output.put_line(:NEW.rodne_cislo);
+end;
+/
+
+
+--pokud se nekdo odhlasi z kurzu, mel by byt odhlasen ze vsech lekci kurzu 
+create or replace trigger odhlasit_z_lekci_pri_odhlaseni_z_kurzu
+after delete on klient_prihlasen_na_kurz
+for each row
+enable
+declare
+    cursor lekce_kurzu is select L.ID_lekce from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=:OLD.ID_kurzu;
+    record lekce_kurzu%ROWTYPE;
+begin
+   
+    for record in lekce_kurzu loop                   
+         delete from se_ucastni_lekce where rodne_cislo = :OLD.rodne_cislo and ID_lekce = record.ID_lekce;
+         dbms_output.put_line('osoba: '||:OLD.rodne_cislo||' odebran z lekce: '||record.ID_lekce);
     end loop;   
    -- dbms_output.put_line(:NEW.rodne_cislo);
 end;
@@ -445,3 +464,6 @@ from osoba O
 where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
                                 where UL.rodne_cislo = O.rodne_cislo);  
+
+--pomoci triggeru je osoba odhlasena i z lekci                                
+delete from klient_prihlasen_na_kurz where rodne_cislo = 9001015342 and ID_kurzu = 5;
