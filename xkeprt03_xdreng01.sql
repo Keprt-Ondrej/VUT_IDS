@@ -25,7 +25,7 @@ create table osoba( /*jedna tabulka pro klienta a instruktora, rozliseno typem*/
     typ char(1) default 'K', --K = klient, I = instruktor
     body number default 0,
     sleva number(3) default 0,
-    check(typ ='K'or typ = 'I'),  
+    check(typ ='K'or typ = 'I'),      
     check(REGEXP_LIKE (tel_cislo,'^\+42[01][0-9]{9}$'))
 );
 
@@ -118,31 +118,31 @@ begin
     --dbms_output.put_line('mesic: '|| mesic); 
     --dbms_output.put_line('den: '|| den);     
     if (VALIDATE_CONVERSION(rodne_cislo AS NUMBER) = 0 or LENGTHB(rodne_cislo) < 9) then
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;
     if (LENGTHB(rodne_cislo) = 9 and posledni_3 = 0) then
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;
     if (LENGTHB(rodne_cislo) = 10 and mod(rc_number,11)= 1) then 
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;    
     if (mesic > 50) then
         mesic := mesic-50;        
     end if;   
     if (mesic < 1 or mesic > 12) then 
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;    
     if (mesic = 2 and 29 < den) then 
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;
     if (den = 0) then
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;
     if ((mesic = 1 or mesic = 3 or mesic = 5 or mesic = 7 or mesic = 8 or mesic = 10 or mesic = 12) and 31 < den) then 
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;
     if ((mesic = 4 or mesic = 6 or mesic = 9 or mesic = 11) and 30 < den) then 
-        rollback;
+        raise_application_error (-20000,'integritní omezení - chybné rodné číslo');
     end if;       
 end;
 /
@@ -444,6 +444,4 @@ select O.jmeno, O.prijmeni, O.tel_cislo, O.email
 from osoba O
 where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
-                                where UL.rodne_cislo = O.rodne_cislo); 
-                             
-                       
+                                where UL.rodne_cislo = O.rodne_cislo);  
