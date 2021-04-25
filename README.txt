@@ -38,3 +38,10 @@ definici přístupových práv k databázovým objektům pro druhého člena tý
 vytvořen alespoň jeden materializovaný pohled patřící druhému členu týmu a používající tabulky
 definované prvním členem týmu (nutno mít již definována přístupová práva), vč. SQL příkazů/dotazů 
 ukazujících, jak materializovaný pohled funguje,
+
+
+trigger:
+
+
+fce: 
+zmena vedouciho kurzu a lekci
