@@ -13,49 +13,6 @@ drop table vlastni_certifikat CASCADE CONSTRAINTS;
 drop table klient_prihlasen_na_kurz CASCADE CONSTRAINTS;
 drop table se_ucastni_lekce CASCADE CONSTRAINTS;
 
-create or replace function kontrola_rc(rodne_cislo in varchar)return number deterministic  --vraci 0 pokud je rodne cislo spatne, jinak 1
-is
-posledni_3 char(4) := cast(substr(rodne_cislo,8,3)as number);
-rc_number number := cast(rodne_cislo as number);
-mesic number := cast(substr(rodne_cislo,3,2) as number);
-den number := cast(substr(rodne_cislo,5,2) as number);
-begin
-    --dbms_output.put_line('rodne_cislo: '|| rodne_cislo);
-    --dbms_output.put_line('rodne_cislo_number: '|| rc_number);
-    --dbms_output.put_line('posledni 3: '|| posledni_3);
-    --dbms_output.put_line('mesic: '|| mesic); 
-    --dbms_output.put_line('den: '|| den);     
-    if (VALIDATE_CONVERSION(rodne_cislo AS NUMBER) = 0 or LENGTHB(rodne_cislo) < 9) then
-        return 0;
-    end if;
-    if (LENGTHB(rodne_cislo) = 9 and posledni_3 = 0) then
-        return 0;
-    end if;
-    if (LENGTHB(rodne_cislo) = 10 and mod(rc_number,11)= 1) then 
-        return 0;
-    end if;    
-    if (mesic > 50) then
-        mesic := mesic-50;        
-    end if;   
-    if (mesic < 1 or mesic > 12) then 
-        return 0;
-    end if;    
-    if (mesic = 2 and 29 < den) then 
-        return 0;
-    end if;
-    if (den = 0) then
-        return 0;
-    end if;
-    if ((mesic = 1 or mesic = 3 or mesic = 5 or mesic = 7 or mesic = 8 or mesic = 10 or mesic = 12) and 31 < den) then 
-        return 0;
-    end if;
-    if ((mesic = 4 or mesic = 6 or mesic = 9 or mesic = 11) and 30 < den) then 
-        return 0;
-    end if;
-    return 1;    
-end;
-/
-
 create table osoba( /*jedna tabulka pro klienta a instruktora, rozliseno typem*/
     rodne_cislo varchar(10) not NULL primary key, -- bez lomitka
     jmeno varchar(30) not NULL,
@@ -68,9 +25,7 @@ create table osoba( /*jedna tabulka pro klienta a instruktora, rozliseno typem*/
     typ char(1) default 'K', --K = klient, I = instruktor
     body number default 0,
     sleva number(3) default 0,
-    check(typ ='K'or typ = 'I'),
-    rc_checked NUMBER GENERATED ALWAYS AS (kontrola_rc(rodne_cislo)) VIRTUAL, --abych mohl pro check pouzit funkci
-    CHECK(rc_checked = 1),
+    check(typ ='K'or typ = 'I'),  
     check(REGEXP_LIKE (tel_cislo,'^\+42[01][0-9]{9}$'))
 );
 
@@ -146,6 +101,51 @@ create table kona_se(
     primary key (cislo_salu,ID_lekce)
 );
 
+----------------------------------------------------------------------------------------------------------triggers--------------------------------------------------------------------------------------------------------------------------------
+create or replace trigger kontrola_rc --0 pokud je rodne cislo spatne, jinak 1
+before insert on osoba 
+for each row
+declare
+rodne_cislo varchar(10) := :new.rodne_cislo;
+posledni_3 char(4) := cast(substr(rodne_cislo,8,3)as number);
+rc_number number := cast(rodne_cislo as number);
+mesic number := cast(substr(rodne_cislo,3,2) as number);
+den number := cast(substr(rodne_cislo,5,2) as number);
+begin
+    --dbms_output.put_line('rodne_cislo: '|| rodne_cislo);
+    --dbms_output.put_line('rodne_cislo_number: '|| rc_number);
+    --dbms_output.put_line('posledni 3: '|| posledni_3);
+    --dbms_output.put_line('mesic: '|| mesic); 
+    --dbms_output.put_line('den: '|| den);     
+    if (VALIDATE_CONVERSION(rodne_cislo AS NUMBER) = 0 or LENGTHB(rodne_cislo) < 9) then
+        rollback;
+    end if;
+    if (LENGTHB(rodne_cislo) = 9 and posledni_3 = 0) then
+        rollback;
+    end if;
+    if (LENGTHB(rodne_cislo) = 10 and mod(rc_number,11)= 1) then 
+        rollback;
+    end if;    
+    if (mesic > 50) then
+        mesic := mesic-50;        
+    end if;   
+    if (mesic < 1 or mesic > 12) then 
+        rollback;
+    end if;    
+    if (mesic = 2 and 29 < den) then 
+        rollback;
+    end if;
+    if (den = 0) then
+        rollback;
+    end if;
+    if ((mesic = 1 or mesic = 3 or mesic = 5 or mesic = 7 or mesic = 8 or mesic = 10 or mesic = 12) and 31 < den) then 
+        rollback;
+    end if;
+    if ((mesic = 4 or mesic = 6 or mesic = 9 or mesic = 11) and 30 < den) then 
+        rollback;
+    end if;       
+end;
+/
 
 --pokud se nekdo prida na kurz, je automaticky pridan na vsechny jeho lekce 
 create or replace trigger auto_ucastni_lekci_kdyz_je_v_kurzu
@@ -164,6 +164,7 @@ begin
    -- dbms_output.put_line(:NEW.rodne_cislo);
 end;
 /
+----------------------------------------------------------------------------------------------------------triggers--------------------------------------------------------------------------------------------------------------------------------
 
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ) values ('7111122249','Shay','Drake','+420608239716','ShaaaayDrake@kmail.com',78654,'Prajska',4,'I');
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('6452093747','Henna','Lopez','+420602821936','HLoper@kmail.com',01008,'Tulska',13,'K',15,10);
@@ -443,6 +444,6 @@ select O.jmeno, O.prijmeni, O.tel_cislo, O.email
 from osoba O
 where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
-                                where UL.rodne_cislo = O.rodne_cislo);     
-                                
+                                where UL.rodne_cislo = O.rodne_cislo); 
+                             
                        
