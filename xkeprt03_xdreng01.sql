@@ -102,6 +102,33 @@ create table kona_se(
 );
 
 ----------------------------------------------------------------------------------------------------------triggers--------------------------------------------------------------------------------------------------------------------------------
+create or replace trigger kontrola_instruktor_kurz
+before insert or update on kurz
+for each row 
+declare
+    instruktor osoba%rowtype;
+begin
+    select * into instruktor from osoba where rodne_cislo= :new.vedouci_kurzu;
+    if (instruktor.typ = 'K') then        
+        raise_application_error (-20001,'integritní omezení - osoba '|| :new.vedouci_kurzu ||' musi byt instruktor');        
+    end if;
+end;
+/
+
+create or replace trigger kontrola_instruktor_lekce
+before insert or update on lekce
+for each row 
+declare
+    instruktor osoba%rowtype;
+begin
+    select * into instruktor from osoba where rodne_cislo= :new.vedouci_lekce;
+    if (instruktor.typ = 'K') then        
+        raise_application_error (-20001,'integritní omezení - osoba '|| :new.vedouci_lekce ||' musi byt instruktor');        
+    end if;
+end;
+/
+
+
 create or replace trigger kontrola_rc --0 pokud je rodne cislo spatne, jinak 1
 before insert on osoba 
 for each row
@@ -465,5 +492,13 @@ where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
                                 where UL.rodne_cislo = O.rodne_cislo);  
 
+
 --pomoci triggeru je osoba odhlasena i z lekci                                
 delete from klient_prihlasen_na_kurz where rodne_cislo = 9001015342 and ID_kurzu = 5;
+
+--testovani triggeru na kontrolu instruktora TODO komentare ano ci ne?
+--insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'9509228476',DATE '2022-08-02',DATE '2022-09-03');
+--update kurz set vedouci_kurzu = 9509228476 where vedouci_kurzu = 9755213952;
+
+--insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'začátečník',15,'9509228476',90,6);
+--update lekce set vedouci_lekce = 9509228476 where vedouci_lekce = 9755213952;
