@@ -41,6 +41,7 @@ ukazujících, jak materializovaný pohled funguje,
 
 
 trigger:
+pokud se zmeni vedouci kurzu zmeni se i vedouci lekce kurzu ktere dana osoba vedla...
 
 
 fce: 
