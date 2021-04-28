@@ -102,6 +102,19 @@ create table kona_se(
 );
 
 ----------------------------------------------------------------------------------------------------------triggers--------------------------------------------------------------------------------------------------------------------------------
+create or replace trigger kontrola_instruktor_certifikat
+before insert or update on vlastni_certifikat
+for each row 
+declare
+    instruktor osoba%rowtype;
+begin
+    select * into instruktor from osoba where rodne_cislo= :new.rodne_cislo;
+        if (instruktor.typ = 'K') then        
+        raise_application_error (-20001,'integritní omezení - osoba '|| :new.rodne_cislo ||' musi byt instruktor');        
+    end if;
+end;
+/
+
 create or replace trigger kontrola_instruktor_kurz
 before insert or update on kurz
 for each row 
@@ -175,7 +188,6 @@ end;
 /
 ----------------------------------------------------------------------------------------------------------triggers--------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------procedures--------------------------------------------------------------------------------------------------------------------------------
-
 --pokud se nekdo prida na kurz, je automaticky pridan na vsechny jeho lekce 
 create or replace procedure prihlasit_na_kurz(rodne_cislo in varchar,kurz_id in number)
 is   
@@ -213,6 +225,40 @@ begin
          delete from se_ucastni_lekce where rodne_cislo = rodne_cislo_osoby and ID_lekce = record.ID_lekce;
          dbms_output.put_line('osoba: '||rodne_cislo_osoby||' odebrana z lekce: '||record.ID_lekce);
     end loop;
+end;
+/
+
+-- zmeni  vedouciho kurzu na jineho
+-- pokud stary vedouci kurzu vedl nejake lekce kurzu, a je ve volani procedury pouzit posledni parametr 'Y', vsechny lekce
+-- ktere vedl povede nyni novi vedouci kurzu,
+-- lekce ktere vedl nekdo jiny zustanou nezmeneny
+create or replace procedure zmena_vedouciho_kurzu(nove_rodne_cislo in varchar,kurz_id in number, zmnenit_lekce in varchar default 'N')
+is
+    cursor lekce_kurzu is select L.ID_lekce from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu = kurz_id;
+    record lekce_kurzu%ROWTYPE;
+    exists_kurz kurz%ROWTYPE;    
+    old_vedouci_kurzu kurz.vedouci_kurzu%type;    
+begin
+    select * into exists_kurz from kurz where ID_kurzu = kurz_id;     
+    begin        
+        if (sql%rowcount = 0) then
+            dbms_output.put_line('kurz: '||kurz_id||' neexistuje');
+            return;
+        else         
+            old_vedouci_kurzu := exists_kurz.vedouci_kurzu;
+            update kurz set vedouci_kurzu = nove_rodne_cislo where ID_kurzu = kurz_id;      --pokud kurz neexistoval tak se to nedozvime....          
+        end if; 
+        if (zmnenit_lekce = 'Y') then
+            for record in lekce_kurzu loop
+                update lekce set vedouci_lekce = nove_rodne_cislo where ID_lekce = record.ID_lekce and vedouci_lekce = old_vedouci_kurzu;
+            end loop;
+        end if;
+    exception
+    when NO_DATA_FOUND then
+        dbms_output.put_line('osoba: '||nove_rodne_cislo||' nenalezena');
+    when others then
+        dbms_output.put_line('osoba: '||nove_rodne_cislo||' musi byt instruktor');
+    end;    
 end;
 /
 ----------------------------------------------------------------------------------------------------------procedures--------------------------------------------------------------------------------------------------------------------------------
@@ -500,7 +546,10 @@ where O.typ ='K'and not exists (select UL.rodne_cislo
 --pomoci procedury je osoba odhlasena i z lekci     
 execute odhlasit_z_kurzu('9001015342',5);
 
+execute zmena_vedouciho_kurzu('0003033492',8,'Y');
+
 --testovani triggeru na kontrolu instruktora TODO komentare ano ci ne?
+--insert into vlastni_certifikat values ('9001015342',7);
 --insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'9509228476',DATE '2022-08-02',DATE '2022-09-03');
 --update kurz set vedouci_kurzu = 9509228476 where vedouci_kurzu = 9755213952;
 
