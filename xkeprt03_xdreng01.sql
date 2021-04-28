@@ -173,44 +173,49 @@ begin
     end if;       
 end;
 /
+----------------------------------------------------------------------------------------------------------triggers--------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------procedures--------------------------------------------------------------------------------------------------------------------------------
 
 --pokud se nekdo prida na kurz, je automaticky pridan na vsechny jeho lekce 
-create or replace trigger auto_ucastni_lekci_kdyz_je_v_kurzu
-after insert on klient_prihlasen_na_kurz
-for each row
-enable
-declare
-    cursor lekce_kurzu is select L.ID_lekce from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=:NEW.ID_kurzu;
+create or replace procedure prihlasit_na_kurz(rodne_cislo in varchar,kurz_id in number)
+is   
+    cursor lekce_kurzu is select L.ID_lekce from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=kurz_id;
     record lekce_kurzu%ROWTYPE;
 begin
-   
-    for record in lekce_kurzu loop                   
-         insert into se_ucastni_lekce values (:NEW.rodne_cislo,record.ID_lekce);
-         dbms_output.put_line('osoba: '||:NEW.rodne_cislo||' pridana na lekci: '||record.ID_lekce);
-    end loop;   
-   -- dbms_output.put_line(:NEW.rodne_cislo);
+    begin
+        insert into klient_prihlasen_na_kurz values(rodne_cislo,kurz_id);
+        dbms_output.put_line('osoba: '||rodne_cislo||' pridana na kurz: '||kurz_id);
+        for record in lekce_kurzu loop
+            begin   --pokud je osoba jiz registrovana na lekci, chci aby to bylo vypsano a chci ji pridat na dalsi lekce kurzu
+                 insert into se_ucastni_lekce values (rodne_cislo,record.ID_lekce);
+                 dbms_output.put_line('osoba: '||rodne_cislo||' pridana na lekci: '||record.ID_lekce);
+            exception
+            when others then
+                dbms_output.put_line('osoba: '||rodne_cislo||' ma jiz lekci '||record.ID_lekce||' prihlasenou');
+            end;
+        end loop;   
+    exception 
+    when others then
+        dbms_output.put_line('osoba: '||rodne_cislo||' ma jiz kurz '||kurz_id||' prihlasen');
+    end;
 end;
 /
-
 
 --pokud se nekdo odhlasi z kurzu, mel by byt odhlasen ze vsech lekci kurzu 
-create or replace trigger odhlasit_z_lekci_pri_odhlaseni_z_kurzu
-after delete on klient_prihlasen_na_kurz
-for each row
-enable
-declare
-    cursor lekce_kurzu is select L.ID_lekce from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=:OLD.ID_kurzu;
+create or replace procedure odhlasit_z_kurzu(rodne_cislo_osoby in varchar,kurz_id in number)
+is
+    cursor lekce_kurzu is select L.ID_lekce from lekce L, kurz K where L.ID_kurzu = K.ID_kurzu and K.ID_kurzu=kurz_id;
     record lekce_kurzu%ROWTYPE;
 begin
-   
+    delete from klient_prihlasen_na_kurz where rodne_cislo = rodne_cislo_osoby and ID_kurzu = kurz_id;    
+    dbms_output.put_line('osoba: '||rodne_cislo_osoby||' odebrana z kurzu: '||kurz_id);
     for record in lekce_kurzu loop                   
-         delete from se_ucastni_lekce where rodne_cislo = :OLD.rodne_cislo and ID_lekce = record.ID_lekce;
-         dbms_output.put_line('osoba: '||:OLD.rodne_cislo||' odebran z lekce: '||record.ID_lekce);
-    end loop;   
-   -- dbms_output.put_line(:NEW.rodne_cislo);
+         delete from se_ucastni_lekce where rodne_cislo = rodne_cislo_osoby and ID_lekce = record.ID_lekce;
+         dbms_output.put_line('osoba: '||rodne_cislo_osoby||' odebrana z lekce: '||record.ID_lekce);
+    end loop;
 end;
 /
-----------------------------------------------------------------------------------------------------------triggers--------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------procedures--------------------------------------------------------------------------------------------------------------------------------
 
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ) values ('7111122249','Shay','Drake','+420608239716','ShaaaayDrake@kmail.com',78654,'Prajska',4,'I');
 insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('6452093747','Henna','Lopez','+420602821936','HLoper@kmail.com',01008,'Tulska',13,'K',15,10);
@@ -303,39 +308,39 @@ insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'začátečník',15,'0003033492',90,11);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Taekwondo','korejské umění sebeobrany',1500,'pokročilý',15,'0003033492',120,11);
 
---pokud se klient prihlasi na kurz, mel by byt pomoci triggeru automaticky prihlasen na vsechny lekce kurzu
-insert into klient_prihlasen_na_kurz values('9861066160',1);
-insert into klient_prihlasen_na_kurz values('9861066160',3);
-insert into klient_prihlasen_na_kurz values('9861066160',11);
-insert into klient_prihlasen_na_kurz values('9202295377',2);
-insert into klient_prihlasen_na_kurz values('9202295377',8);
-insert into klient_prihlasen_na_kurz values('9405036025',3);
-insert into klient_prihlasen_na_kurz values('9405036025',7);
-insert into klient_prihlasen_na_kurz values('9807281825',4);
-insert into klient_prihlasen_na_kurz values('9951256772',5);
-insert into klient_prihlasen_na_kurz values('9951256772',1);
-insert into klient_prihlasen_na_kurz values('9954124714',6);
-insert into klient_prihlasen_na_kurz values('9954124714',10);
-insert into klient_prihlasen_na_kurz values('9606198646',7);
-insert into klient_prihlasen_na_kurz values('9606198646',8);
-insert into klient_prihlasen_na_kurz values('9606198646',10);
-insert into klient_prihlasen_na_kurz values('9606198646',11);
-insert into klient_prihlasen_na_kurz values('9509228476',8);
-insert into klient_prihlasen_na_kurz values('9509228476',3);
-insert into klient_prihlasen_na_kurz values('8502054803',9);
-insert into klient_prihlasen_na_kurz values('8502054803',4);
-insert into klient_prihlasen_na_kurz values('8502054803',8);
-insert into klient_prihlasen_na_kurz values('8756190773',10);
-insert into klient_prihlasen_na_kurz values('8756190773',5);
-insert into klient_prihlasen_na_kurz values('8955041447',11);
-insert into klient_prihlasen_na_kurz values('8955041447',8);
-insert into klient_prihlasen_na_kurz values('8955041447',7);
-insert into klient_prihlasen_na_kurz values('0158035889',1);
-insert into klient_prihlasen_na_kurz values('8656046713',2);
-insert into klient_prihlasen_na_kurz values('7504144714',3);
-insert into klient_prihlasen_na_kurz values('7504144714',8);
-insert into klient_prihlasen_na_kurz values('7111255943',4);
-insert into klient_prihlasen_na_kurz values('9001015342',5);
+--pokud se klient prihlasi na kurz, mel by byt pomoci procedury automaticky prihlasen na vsechny lekce kurzu
+execute prihlasit_na_kurz('9861066160',1);
+execute prihlasit_na_kurz('9861066160',3);
+execute prihlasit_na_kurz('9861066160',11);
+execute prihlasit_na_kurz('9202295377',2);
+execute prihlasit_na_kurz('9202295377',8);
+execute prihlasit_na_kurz('9405036025',3);
+execute prihlasit_na_kurz('9405036025',7);
+execute prihlasit_na_kurz('9807281825',4);
+execute prihlasit_na_kurz('9951256772',5);
+execute prihlasit_na_kurz('9951256772',1);
+execute prihlasit_na_kurz('9954124714',6);
+execute prihlasit_na_kurz('9954124714',10);
+execute prihlasit_na_kurz('9606198646',7);
+execute prihlasit_na_kurz('9606198646',8);
+execute prihlasit_na_kurz('9606198646',10);
+execute prihlasit_na_kurz('9606198646',11);
+execute prihlasit_na_kurz('9509228476',8);
+execute prihlasit_na_kurz('9509228476',3);
+execute prihlasit_na_kurz('8502054803',9);
+execute prihlasit_na_kurz('8502054803',4);
+execute prihlasit_na_kurz('8502054803',8);
+execute prihlasit_na_kurz('8756190773',10);
+execute prihlasit_na_kurz('8756190773',5);
+execute prihlasit_na_kurz('8955041447',11);
+execute prihlasit_na_kurz('8955041447',8);
+execute prihlasit_na_kurz('8955041447',7);
+execute prihlasit_na_kurz('0158035889',1);
+execute prihlasit_na_kurz('8656046713',2);
+execute prihlasit_na_kurz('7504144714',3);
+execute prihlasit_na_kurz('7504144714',8);
+execute prihlasit_na_kurz('7111255943',4);
+execute prihlasit_na_kurz('9001015342',5);
 
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('zaklady boxu I','Prva lekcia boxu',200,'začátečník',20,'7111122249',60,2);
 insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Prebudenie','Joga v dennom zivote',180,'začátečník',20,'7111122249',120,1);
@@ -492,9 +497,8 @@ where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
                                 where UL.rodne_cislo = O.rodne_cislo);  
 
-
---pomoci triggeru je osoba odhlasena i z lekci                                
-delete from klient_prihlasen_na_kurz where rodne_cislo = 9001015342 and ID_kurzu = 5;
+--pomoci procedury je osoba odhlasena i z lekci     
+execute odhlasit_z_kurzu('9001015342',5);
 
 --testovani triggeru na kontrolu instruktora TODO komentare ano ci ne?
 --insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'9509228476',DATE '2022-08-02',DATE '2022-09-03');
