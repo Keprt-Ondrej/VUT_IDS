@@ -548,6 +548,29 @@ execute odhlasit_z_kurzu('9001015342',5);
 
 execute zmena_vedouciho_kurzu('0003033492',8,'Y');
 
+--EXPLAIN PLAN 
+
+
+
+explain plan for 
+select O.PSC , count(*)
+from osoba O natural join klient_prihlasen_na_kurz PK 
+where  O.PSC = 78985 and PK.ID_kurzu = 5
+group by  O.PSC;
+
+select * from table(dbms_xplan.display());
+
+create index index_psc on osoba(PSC);
+
+explain plan for 
+select /*+ INDEX(osoba index_psc)*/ O.PSC ,count(*)
+from osoba O natural join klient_prihlasen_na_kurz PK 
+where  O.PSC = 78985 and PK.ID_kurzu = 5
+group by  O.PSC;
+
+
+select * from table(dbms_xplan.display());
+
 --testovani triggeru na kontrolu instruktora TODO komentare ano ci ne?
 --insert into vlastni_certifikat values ('9001015342',7);
 --insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'9509228476',DATE '2022-08-02',DATE '2022-09-03');
