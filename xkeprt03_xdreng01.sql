@@ -576,11 +576,6 @@ where O.typ ='K'and not exists (select UL.rodne_cislo
                                 from se_ucastni_lekce UL 
                                 where UL.rodne_cislo = O.rodne_cislo);  
 
---pomoci procedury je osoba odhlasena i z lekci     
-execute odhlasit_z_kurzu('9001015342',5);
-
-execute zmena_vedouciho_kurzu('0003033492',8,'Y');
-
 --EXPLAIN PLAN 
 explain plan for 
 select O.PSC , count(*)
@@ -598,6 +593,10 @@ where  O.PSC = 78985 and PK.ID_kurzu = 5
 group by  O.PSC;
 select * from table(dbms_xplan.display());
 
+--pomoci procedury je osoba odhlasena i z lekci     
+execute odhlasit_z_kurzu('9001015342',5);
+
+execute zmena_vedouciho_kurzu('0003033492',8,'Y');
 
 --testovani triggeru na kontrolu instruktora TODO komentare ano ci ne?
 --insert into vlastni_certifikat values ('9001015342',7);
