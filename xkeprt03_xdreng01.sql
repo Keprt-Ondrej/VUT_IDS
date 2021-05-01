@@ -593,29 +593,21 @@ where  O.PSC = 78985 and PK.ID_kurzu = 5
 group by  O.PSC;
 select * from table(dbms_xplan.display());
 
---pomoci procedury je osoba odhlasena i z lekci     
-execute odhlasit_z_kurzu('9001015342',5);
-
-execute zmena_vedouciho_kurzu('0003033492',8,'Y');
-
 -- MATERIALIZED VIEW 
 alter session set query_rewrite_enabled = true;
 
 drop materialized view kurz_view;
 
-create materialized view log on kurz with primary key, rowid(ID_kurzu);
+
+create materialized view log on kurz with primary key;
 
 create materialized view kurz_view
-
 cache 
-
 build immediate
-
 refresh fast on commit 
-
 enable query rewrite 
 
-as select k.ID_kurzu, k.typ ,k.popis, k.cena, k.obtiznost, k.veduci_kurzu, k.datum_zacatku, k.datum_konce 
+as select k.ID_kurzu, k.typ ,k.popis, k.cena, k.obtiznost, k.vedouci_kurzu, k.datum_zacatku, k.datum_konce 
 from kurz k 
 where k.cena > 1000;
 
@@ -626,10 +618,23 @@ insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,d
 commit;
 select * from kurz_view;
 
---testovani triggeru na kontrolu instruktora TODO komentare ano ci ne?
---insert into vlastni_certifikat values ('9001015342',7);
---insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'9509228476',DATE '2022-08-02',DATE '2022-09-03');
---update kurz set vedouci_kurzu = 9509228476 where vedouci_kurzu = 9755213952;
+--pomoci procedury je osoba odhlasena i z lekci     
+execute odhlasit_z_kurzu('9001015342',5);
 
---insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'začátečník',15,'9509228476',90,6);
---update lekce set vedouci_lekce = 9509228476 where vedouci_lekce = 9755213952;
+-- zmeni i vedouciho lekci
+execute zmena_vedouciho_kurzu('0003033492',8,'Y');
+
+execute zmena_vedouciho_kurzu('7111122249',8);
+
+execute dbms_output.put_line('Nasledujici errory jsou vysledkem testovani triggeru:');
+--testovani triggeru na kontrolu instruktora 
+insert into vlastni_certifikat values ('9001015342',7);
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'9509228476',DATE '2022-08-02',DATE '2022-09-03');
+update kurz set vedouci_kurzu = 9509228476 where vedouci_kurzu = 9755213952;
+
+insert into lekce(typ,popis,cena,obtiznost,kapacita,vedouci_lekce,delka_lekce,ID_kurzu) values ('Jóga','zpevnění těla a relaxace',600,'začátečník',15,'9509228476',90,6);
+update lekce set vedouci_lekce = 9509228476 where vedouci_lekce = 9755213952;
+
+--testovani triggeru na kontrolu rodneho cisla
+insert into osoba(rodne_cislo,jmeno,prijmeni, tel_cislo,email,PSC,ulice,cislo_domu,typ,body,sleva) values ('9861066164','Irena','Vopršálková','+420769756955','irenav25@seznam.cz',78971,'Jeremenkova',132,'K',42,20);
+
