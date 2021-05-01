@@ -598,6 +598,34 @@ execute odhlasit_z_kurzu('9001015342',5);
 
 execute zmena_vedouciho_kurzu('0003033492',8,'Y');
 
+-- MATERIALIZED VIEW 
+alter session set query_rewrite_enabled = true;
+
+drop materialized view kurz_view;
+
+create materialized view log on kurz with primary key, rowid(ID_kurzu);
+
+create materialized view kurz_view
+
+cache 
+
+build immediate
+
+refresh fast on commit 
+
+enable query rewrite 
+
+as select k.ID_kurzu, k.typ ,k.popis, k.cena, k.obtiznost, k.veduci_kurzu, k.datum_zacatku, k.datum_konce 
+from kurz k 
+where k.cena > 1000;
+
+grant all on kurz_view to xdreng01;
+
+select * from kurz_view;
+insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Ninja','Zakladne techniky prezitia',7000,'prezivsi',2,'7111122249',DATE '2021-06-07',DATE '2021-07-07');
+commit;
+select * from kurz_view;
+
 --testovani triggeru na kontrolu instruktora TODO komentare ano ci ne?
 --insert into vlastni_certifikat values ('9001015342',7);
 --insert into kurz(typ,popis,cena,obtiznost,kapacita,vedouci_kurzu,datum_zacatku,datum_konce) values ('Pokojna mysel','Joga pre kazdeho',1500,'začátečník',10,'9509228476',DATE '2022-08-02',DATE '2022-09-03');
