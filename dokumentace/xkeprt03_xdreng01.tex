@@ -71,12 +71,27 @@ Typ predstavuje klienta symbolizovaného za pomoci znaku 'K' alebo inštruktora 
 znakom 'I'. 
 
 \section{Triggery}
-Zadanie požodovalo implementovať trigger na generovanie hodnôt primárneho kľúča. Trigger \texttt{ID\_lekce\_insert} generuje hodnoty primárneho kľúča tabuľky lekcie.Nasledujúci trigger mal za úlohu kontrolovať vlastníctvo certifikátu osobou typu inštruktor a nápodobne bolo treba kontrolovať, že kurz alebo lekcia je vedená osobou typu inštruktor.Pokial osoba nieje inštruktor trigger zahlási výnimku.Bol implementovaný trigger na kontrolu rodného čisla \texttt{kontrola\_rc}, podľa štandartných kritérii Českej Spávy Sociálního Zabezpečení.Pokiaľ je vložené neplatné rodné číslo trigger zahlási výnimku. 
+Zadanie požadovalo implementovať trigger na generovanie hodnôt primárneho kľúča.
+Trigger \texttt{ID\_lekce\_insert} generuje hodnoty primárneho kľúča tabuľky lekcie.
+
+Nasledujúci trigger mal za úlohu kontrolovať vlastníctvo certifikátu osobou typu inštruktor a nápodobne bolo
+treba kontrolovať, že kurz alebo lekcia je vedená osobou typu inštruktor. Pokial osoba
+nieje inštruktor, trigger zahlási výnimku. 
+
+Bol implementovaný trigger na kontrolu rodného čisla \texttt{kontrola\_rc}, podľa štandartných kritérii Českej Spávy Sociálního 
+Zabezpečení. Pokiaľ je vložené neplatné rodné číslo, trigger zahlási výnimku. 
 
 \section{Procedúry}
 Vytvorili sme procedúru \texttt{prihlasit\_na\_kurz} aby osoba, ktorá sa prihlási na kurz bola automaticky
-prihlásena aj na lekcie prislúhajúcemu kurzu. Procedúra využíva kurzor, ktorý vyhledá všetky lekcie daného kurzu. Najprv je osoba prihlásená na kurz, potom sa prechádza kurzor a prihlasuje sa na jednotlivé lekcie. Pokial je osoba prihlásená na lekciu pokračuje sa ďalej. Taktiež bolo treba procedúru \texttt{odhlasit\_z\_kurzu}, ktorá zabezpečí aby osoba odhlasujúca z kurzu bola odhlásena aj zo všetkých lekcii daného kurzu. 
-Procedúra \texttt{zmena\_vedouciho\_kurzu} zaistí zmenu vedúceho kurzu. Pokud procedúra prijme parameter 'Y' tak zmena vedúceho nastane v lekciach, ktoré viedol starý vedúci kurzu.
+prihlásena aj na lekcie prislúhajúcemu kurzu. Procedúra využíva kurzor, ktorý vyhledá všetky lekcie daného kurzu.
+Najprv je osoba prihlásená na kurz, potom sa prechádza kurzor a prihlasuje sa na jednotlivé lekcie. Pokial je osoba
+prihlásená na lekciu pokračuje sa ďalej.
+
+Taktiež bolo treba procedúru \texttt{odhlasit\_z\_kurzu}, ktorá zabezpečí 
+aby osoba odhlasujúca z kurzu bola odhlásena aj zo všetkých lekcii daného kurzu. 
+
+Procedúra \texttt{zmena\_vedouciho\_kurzu} zaistí zmenu vedúceho kurzu. Pokud procedúra prijme parameter 'Y'
+tak zmena vedúceho nastane taktiež v lekciach, ktoré viedol starý vedúci kurzu.
 
 \section{Explain plan}
 Za pomoci príkazu explain plan sme boli schopný ukázať optimalizáciu spracovania dotazu za pomoci indexu.
