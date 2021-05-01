@@ -95,11 +95,17 @@ tak zmena vedúceho nastane taktiež v lekciach, ktoré viedol starý vedúci ku
 
 \section{Explain plan}
 Za pomoci príkazu explain plan sme boli schopný ukázať plán dotazu select, ktorý vyhľadá osoby z mesta zadaného pomocou PSČ
-a zároven navštevujú daný kurz.Pri provom použití bola demonštrovaná verzia bez indexu čo ma malo za následok prechádzanie celej tabulky osoba.Nasledovalo druhé použite explain plan kde spracovanie toho istého dotazu bolo obohatené o index nad stĺpecom PSČ v tabulke osoba.Select už neprechádzal tabulku osoba po riadkoch , ale využil priechod cez index nad PSČ.Namiesto prechádzania tabulky sa využilo prechádzanie indexov čo sa značne prejavilo na cene operácii.Dodatočna optimalizácia by mohla byť realizovaná ,že by sa najprv pomocou poddotazu najprv našli všetci členovia daného kurzu a potom z nich vybrali iba osoby s daným PSČ.
+a zároven navštevujú daný kurz. Pri provom použití bola demonštrovaná verzia bez indexu čo ma malo za následok prechádzanie
+celej tabulky osoba. Nasledovalo druhé použite explain plan kde spracovanie toho istého dotazu bolo obohatené o index nad
+stĺpecom PSČ v tabulke osoba. Select už neprechádzal tabulku osoba po riadkoch, ale využil priechod cez index nad PSČ.
+Namiesto prechádzania tabulky sa využilo prechádzanie indexov čo sa značne prejavilo na cene operácii.Dodatočna optimalizácia 
+by mohla byť realizovaná, že by sa najprv pomocou poddotazu najprv našli všetci členovia daného kurzu a potom z nich vybrali 
+iba osoby s daným PSČ.
 
 \section{Materializovaný pohľad}
-Materializovaný pohľad vytvorený z tabuliek definovaných jedným uživateľom , pri čom pohlad patrí druhému uživateľovi.Pohľad využíva predom definovaného logu nad tabulkou kurz.
-Tento log nám umožnuje pohľad zmeniť okamžite po zmene tabuľky z ktorej vychádza ihneď po commite zmeny.Build immediate nám naplní pohľad dátami ihneď po vytvorení.
+Materializovaný pohľad vytvorený z tabuliek definovaných jedným uživateľom, pri čom pohlad patrí druhému uživateľovi.
+Pohľad využíva predom definovaného logu nad tabulkou kurz. Tento log nám umožnuje pohľad zmeniť okamžite po zmene tabuľky
+z ktorej vychádza ihneď po commite zmeny. Build immediate nám naplní pohľad dátami ihneď po vytvorení.
 
 
 \section{Práva}
