@@ -67,7 +67,7 @@ schopen vypsat rozvrh pro jednotlivé místnosti.
 
 \section{Generalizácia}
 V našej databáze je generalizácia reprezentovaná typom v entitnej množine osoba.
-Typ predstavuje klienta symbolizovaného za pomoci znaku 'K' alebo inštruktora , ktorý je symbolizovaný
+Typ predstavuje klienta symbolizovaného za pomoci znaku 'K' alebo inštruktora, ktorý je symbolizovaný
 znakom 'I'. 
 
 \section{Triggery}
@@ -96,9 +96,28 @@ tak zmena vedúceho nastane taktiež v lekciach, ktoré viedol starý vedúci ku
 \section{Explain plan}
 Za pomoci príkazu explain plan sme boli schopný ukázať plán dotazu select, ktorý vyhľadá osoby z mesta zadaného pomocou PSČ
 a zároven navštevujú daný kurz. Pri provom použití bola demonštrovaná verzia bez indexu čo ma malo za následok prechádzanie
-celej tabulky osoba. Nasledovalo druhé použite explain plan kde spracovanie toho istého dotazu bolo obohatené o index nad
+celej tabulky osoba. 
+
+\begin{figure}[ht]
+    \centering
+    \caption{Explain plan bez indexu}    
+    \includegraphics[scale=.6]{bez_indexu.png}    
+    \label{lopata}
+\end{figure}
+
+Nasledovalo druhé použite explain plan kde spracovanie toho istého dotazu bolo obohatené o index nad
 stĺpecom PSČ v tabulke osoba. Select už neprechádzal tabulku osoba po riadkoch, ale využil priechod cez index nad PSČ.
-Namiesto prechádzania tabulky sa využilo prechádzanie indexov čo sa značne prejavilo na cene operácii.Dodatočna optimalizácia 
+Namiesto prechádzania tabulky sa využilo prechádzanie indexov, čo sa značne prejavilo na cene operácii.
+
+\begin{figure}[ht]
+    \centering
+    \caption{Explain plan s indexom}    
+    \includegraphics[scale=.6]{s_indexom.png}    
+    \label{lopata}
+\end{figure}
+
+
+Dodatočna optimalizácia 
 by mohla byť realizovaná, že by sa najprv pomocou poddotazu najprv našli všetci členovia daného kurzu a potom z nich vybrali 
 iba osoby s daným PSČ.
 
